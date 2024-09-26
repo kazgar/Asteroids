@@ -33,10 +33,15 @@ def main():
             item.update(dt)
             if item == player:
                 player.timer -= dt
-        for item in asteroids:
-            if item.collision(player):
+        for asteroid in asteroids:
+            if asteroid.collision(player):
                 print("Game over!")
                 exit()
+            for shot in shots_group:
+                if asteroid.collision(shot):
+                    asteroid.split()
+                    shot.kill()
+
         for item in drawable:
             item.draw(screen)
         pygame.display.flip()
